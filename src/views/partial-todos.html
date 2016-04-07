@@ -1,0 +1,38 @@
+<h1>Todos</h1>
+	<div>
+		<button class='btn btn-danger' ng-click="todos.resetEdit()">Cancel Edit</button>
+		<table>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<form name='taskForm' ng-submit='todos.addTask()'>
+					<td>
+						<input type='text' ng-model='todos.newTodo.title' class="form-control">
+					</td>
+					<td>
+						<input type='text' ng-model='todos.newTodo.description' class='form-control'>
+					</td>
+					<button ng-click='todos.addTask()' class="btn btn-primary">Submit Task</button>
+				</form>
+			</tr>
+			<tr ng-repeat='todo in todos.list'>
+				<td>
+					<div ng-hide='todo.id===todos.editMode'>{{todo.title}}</div>
+					<input class='form-control'ng-model='todos.currentItem.title' ng-show='todo.id===todos.editMode'/>
+				</td>
+				<td>
+					<div ng-hide='todo.id===todos.editMode'>{{todo.description}}</div>
+					<input class='form-control'ng-model='todos.currentItem.description' ng-show='todo.id===todos.editMode'/>
+				</td>
+				<td>
+					<button class='btn btn-danger' ng-click='todos.remove(todo.id)'>Delete</button>
+				</td>
+				<td>
+					<button class='btn btn-primary' ng-click='todos.setEdit(todo)' ng-hide='todo.id===todos.editMode'>Edit</button>
+					<button class='btn btn-success' ng-click='todos.saveEdit(todo)' ng-show='todo.id===todos.editMode'>Save</button>
+				</td>
+			</tr>
+		</table>
+	</div>

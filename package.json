@@ -1,0 +1,19 @@
+{
+  "name": "ui_angular_router",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdodge89/UI_Router_Angular.git"
+  },
+  "author": "Connor Dodge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdodge89/UI_Router_Angular/issues"
+  },
+  "homepage": "https://github.com/cdodge89/UI_Router_Angular#readme"
+}

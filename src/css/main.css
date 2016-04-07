@@ -1,0 +1,14 @@
+.navbar{
+	border-radius: 0px;
+	background: #253B73;
+	color: black;
+}
+
+a{
+	color: white;
+}
+
+.joke{
+	font-size: 2em;
+	margin-top: 25px;
+}
