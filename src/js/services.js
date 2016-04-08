@@ -40,7 +40,7 @@
 			return service;
 
 			function get(){
-				return $http.get('http://api.icndb.com/jokes/random/?escape=javascript?exclude=[Explicit]');
+				return $http.get('http://api.icndb.com/jokes/random/?escape=javascript');
 			}
 		}
 })();

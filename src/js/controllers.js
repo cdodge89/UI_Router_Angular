@@ -1,9 +1,8 @@
 (function(){
-angular.module('routerApp',['ui.router'])
-		.controller('TodoController',['Item', function(Item){
+angular.module('routerApp')
+		.controller('TodoController',['Item','firstList', function(Item, firstList){
 			//local variables
 			var vm = this;
-			
 			//bound functions
 			vm.addTask = addTask; 
 			vm.remove = remove;
@@ -11,12 +10,13 @@ angular.module('routerApp',['ui.router'])
 			vm.isSet = isSet;
 			vm.resetEdit = resetEdit;
 			vm.saveEdit = saveEdit;
+			vm.findById = findById;
 			//bound variables
 			vm.newTodo = {};
 			vm.editMode = null;
 			vm.currentItem = null;
+			vm.list = firstList
 
-			init();
 			//bound function implementations
 			function addTask(){
 				console.log(vm.newTodo.description);
@@ -31,11 +31,7 @@ angular.module('routerApp',['ui.router'])
 			}
 			function remove(id){
 				Item.remove(id).then(function(){
-					for(var i = 0; i < vm.list.length; i++){
-						if(vm.list[i].id === id){
-							vm.list.splice(i,1);
-						}
-					}
+					vm.list.splice(vm.findById(id,vm.list),1);
 				});
 			}
 			function setEdit(todo){
@@ -53,6 +49,8 @@ angular.module('routerApp',['ui.router'])
 			}
 			function saveEdit(todo){
 				Item.update(vm.currentItem).then(function(){
+					var index = vm.findById(todo.id,vm.list);
+					vm.list[index] = vm.currentItem;
 					vm.currentItem = {};
 					vm.editMode = null;
 				}, function(response){
@@ -60,11 +58,27 @@ angular.module('routerApp',['ui.router'])
 				});
 			}
 			//helper functions
-			function init(){
-				Item.list().then(function(response){
-					vm.list = response.data;
-					console.log(vm.list);
+			function findById(id, list){
+				for(var i = 0; i < list.length; i++){
+					if(list[i].id === id){
+						return i;
+					}
+				}
+			}
+		}])
+		.controller('JokeController',['Joke','firstJoke', function(Joke, firstJoke){
+			var vm = this;
+			//bound functions
+			vm.getJoke = getJoke;
+			//bound variables
+			vm.currentJoke = firstJoke;
+
+			//bound function implementation
+			function getJoke(){
+				Joke.get().then(function(response){
+					vm.currentJoke = response.data.value.joke;
 				});
+				console.log(this.currentJoke);
 			}
 		}]);
 })();
